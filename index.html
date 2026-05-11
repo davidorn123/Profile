@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meu Portfólio</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <div id="pbar"></div>
+
+    <nav>
+        <span class="logo">Davi Marcos Dorn</span>
+        <ul class="nl" id="nl">
+            <li><a href="#sobre">Sobre mim</a></li>
+            <li><a href="#formacao">Formação</a></li>
+            <li><a href="#portfolio">Portfólio</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+    <section id="sobre">
+        <div class="hero-txt">
+            <p class="greeting">Olá, eu sou</p>
+            <h1>Davi Marcos Dorn</h1>
+            <p>
+                Desenvolvedor focado na construção de sistemas robustos, com alta disponibilidade e prontos para escala.
+                Minha atuação é guiada por princípios de Clean Architecture e SOLID, garantindo que a agilidade na
+                entrega não comprometa a
+                manutenibilidade do código a longo prazo.
+            </p>
+            <a href="#contato" class="btn">Entre em contato</a>
+        </div>
+        <div>
+            <img class="avatar" src="./img/profilepicture.jpg" alt="Profile picture">
+        </div>
+    </section>
+
+    <section id="formacao">
+        <div>
+            <p class="sec-label">Trajetória</p>
+            <h2 class="sec-title">Formação</h2>
+            <div class="divider"></div>
+            <div class="timeline" id="timeline"></div>
+        </div>
+        <div>
+            <p class="sec-label">Trajetória</p>
+            <h2 class="sec-title">Experiência</h2>
+            <div class="divider"></div>
+            <div class="timeline" id="timeline2"></div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <p class="sec-label">Projetos</p>
+        <h2 class="sec-title">Portfólio</h2>
+        <div class="divider"></div>
+        <div class="pgrid" id="pgrid"></div>
+    </section>
+
+    <section id="contato">
+        <p class="sec-label">Fale comigo</p>
+        <h2 class="sec-title">Contato</h2>
+        <div class="divider"></div>
+        <div class="cwrap">
+            <div class="cinfo">
+                <p>Estou aberto a novas oportunidades, projetos freelance ou um bate-papo sobre tecnologia. Manda
+                    mensagem!</p>
+                <div class="clinks" id="clinks"></div>
+            </div>
+            <form class="cform" id="cform">
+                <input type="text" id="fn" placeholder="Seu nome" required />
+                <input type="email" id="fe" placeholder="Seu e-mail" required />
+                <textarea id="fm" placeholder="Mensagem..." required></textarea>
+                <button type="submit" class="btn">Enviar mensagem</button>
+                <p id="fb">✅ Mensagem enviada com sucesso!</p>
+            </form>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
