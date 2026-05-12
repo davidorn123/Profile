@@ -33,7 +33,6 @@ a {
     text-decoration: none;
 }
 
-/* ── Barra de progresso ── */
 #pbar {
     position: fixed;
     top: 0;
@@ -45,7 +44,6 @@ a {
     transition: width .1s;
 }
 
-/* ── Navbar ── */
 nav {
     position: fixed;
     top: 0;
@@ -67,16 +65,40 @@ nav {
     display: none;
     background: none;
     border: none;
-    color: var(--text);
-    font-size: 1.4rem;
     cursor: pointer;
     padding: 8px;
+    z-index: 101;
 }
 
-.nav-toggle span {
-    display: inline-flex;
-    align-items: center;
+.hb {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    gap: 5px;
+    width: 24px;
+    height: 24px;
+}
+
+.hb span {
+    display: block;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform .3s ease, opacity .3s ease, width .3s ease;
+    transform-origin: center;
+}
+
+.nav-toggle[aria-expanded="true"] .hb span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .hb span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.nav-toggle[aria-expanded="true"] .hb span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 .logo {
@@ -119,7 +141,6 @@ section:nth-child(even) {
     background: var(--surface);
 }
 
-/* ── Sobre ── */
 #sobre {
     flex-direction: row;
     align-items: center;
@@ -203,7 +224,6 @@ section:nth-child(even) {
     flex-shrink: 0;
 }
 
-/* ── Cabeçalho de seção ── */
 .sec-label {
     font-size: .75rem;
     letter-spacing: 3px;
@@ -227,7 +247,6 @@ section:nth-child(even) {
     margin-bottom: 40px;
 }
 
-/* ── Timeline (Formação) ── */
 .timeline {
     display: flex;
     flex-direction: column;
@@ -277,7 +296,6 @@ section:nth-child(even) {
     font-size: .88rem;
 }
 
-/* ── Grid de projetos ── */
 .pgrid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -340,7 +358,6 @@ section:nth-child(even) {
     color: var(--acc);
 }
 
-/* ── Contato ── */
 .cwrap {
     display: flex;
     gap: 48px;
@@ -400,7 +417,6 @@ section:nth-child(even) {
     font-size: 1rem;
 }
 
-/* ── Formulário ── */
 .cform {
     flex: 1;
     min-width: 270px;
@@ -446,11 +462,13 @@ section:nth-child(even) {
 
 @media (max-width: 780px) {
     nav {
-        padding: 0 16px;
+        padding: 0 18px;
     }
 
     .nav-toggle {
-        display: inline-flex;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .nl {
@@ -459,32 +477,50 @@ section:nth-child(even) {
         left: 0;
         right: 0;
         margin: 0;
-        padding: 16px 20px 18px;
-        background: rgba(15, 15, 19, 0.98);
-        border-bottom: 1px solid rgba(124, 106, 247, .15);
+        padding: 0;
+        background: rgba(15, 15, 19, 0.97);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(124, 106, 247, .18);
         flex-direction: column;
-        gap: 10px;
-        transform: scaleY(0);
-        transform-origin: top;
-        opacity: 0;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
         visibility: hidden;
-        transition: transform .22s ease, opacity .22s ease;
+        transition: max-height .32s ease, visibility .32s ease, padding .32s ease;
     }
 
     .nl.open {
-        transform: scaleY(1);
-        opacity: 1;
+        max-height: 320px;
         visibility: visible;
+        padding: 10px 0 14px;
     }
 
+    .nl li {
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: opacity .22s ease, transform .22s ease;
+    }
+
+    .nl.open li {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .nl.open li:nth-child(1) { transition-delay: .06s; }
+    .nl.open li:nth-child(2) { transition-delay: .11s; }
+    .nl.open li:nth-child(3) { transition-delay: .16s; }
+    .nl.open li:nth-child(4) { transition-delay: .21s; }
+
     .nl a {
-        width: 100%;
-        padding: 10px 14px;
-        font-size: .88rem;
+        display: block;
+        width: calc(100% - 36px);
+        margin: 0 18px;
+        padding: 11px 14px;
+        font-size: .9rem;
+        border-radius: var(--r);
     }
 }
 
-/* ── Responsivo ── */
 @media (max-width: 580px) {
     #sobre {
         flex-direction: column-reverse;
@@ -493,10 +529,5 @@ section:nth-child(even) {
 
     .avatar {
         width: 110px;
-    }
-
-    .nl a {
-        padding: 5px 9px;
-        font-size: .78rem;
     }
 }
