@@ -60,6 +60,23 @@ nav {
     justify-content: space-between;
     padding: 0 6vw;
     z-index: 99;
+    min-height: var(--nav-h);
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 8px;
+}
+
+.nav-toggle span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logo {
@@ -425,6 +442,46 @@ section:nth-child(even) {
     color: #69f0ae;
     display: none;
     margin-top: 2px;
+}
+
+@media (max-width: 780px) {
+    nav {
+        padding: 0 16px;
+    }
+
+    .nav-toggle {
+        display: inline-flex;
+    }
+
+    .nl {
+        position: absolute;
+        top: var(--nav-h);
+        left: 0;
+        right: 0;
+        margin: 0;
+        padding: 16px 20px 18px;
+        background: rgba(15, 15, 19, 0.98);
+        border-bottom: 1px solid rgba(124, 106, 247, .15);
+        flex-direction: column;
+        gap: 10px;
+        transform: scaleY(0);
+        transform-origin: top;
+        opacity: 0;
+        visibility: hidden;
+        transition: transform .22s ease, opacity .22s ease;
+    }
+
+    .nl.open {
+        transform: scaleY(1);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nl a {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: .88rem;
+    }
 }
 
 /* ── Responsivo ── */

@@ -14,6 +14,9 @@
 
     <nav>
         <span class="logo">Davi Marcos Dorn</span>
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-label="Abrir menu">
+            <span>☰</span>
+        </button>
         <ul class="nl" id="nl">
             <li><a href="#sobre">Sobre mim</a></li>
             <li><a href="#formacao">Formação</a></li>
@@ -44,13 +47,48 @@
             <p class="sec-label">Trajetória</p>
             <h2 class="sec-title">Formação</h2>
             <div class="divider"></div>
-            <div class="timeline" id="timeline"></div>
+            <div class="timeline" id="timeline">
+                <div class="ti vis">
+                    <p class="yr">04/2025 – Cursando</p>
+                    <h3>Ciência da Computação</h3>
+                    <p>Uninter · Online</p>
+                </div>
+                <div class="ti vis">
+                    <p class="yr">09-2021 - 08/2023</p>
+                    <h3>Técnico em Eletromecânica</h3>
+                    <p>Senai · Pomerode, SC</p>
+                </div>
+                <div class="ti vis">
+                    <p class="yr">01/2020 – 12/2020</p>
+                    <h3>Aprendizagem Industrial de Eletricista de Instalações Industriais</h3>
+                    <p>Senai · Pomerode, SC</p>
+                </div>
+            </div>
         </div>
         <div>
             <p class="sec-label">Trajetória</p>
             <h2 class="sec-title">Experiência</h2>
             <div class="divider"></div>
-            <div class="timeline" id="timeline2"></div>
+            <div class="timeline" id="timeline2">
+                <div class="ti vis">
+                    <p class="yr">04/2026 - Altualmente</p>
+                    <h3>ANDRITZ Separation - Estagio TI · Infra / Suportes</h3>
+                    <p>Pomerode · Presencial</p>
+                    <p>Presto suporte aos colaboradores e sou responsável pela infraestrutura da empresa.</p>
+                </div>
+                <div class="ti vis">
+                    <p class="yr">08/2025 - 02/2026</p>
+                    <h3>Ardatz Tecnologia - Desenvolvedor Júnior</h3>
+                    <p>Curitiba · Remoto</p>
+                    <p>Desenvolvimento de plataforma de venda de ingressos com React no front-end e Java no back-end, criando interfaces dinâmicas e mantendo regras de negócio para sistemas de alto fluxo.</p>
+                </div>
+                <div class="ti vis">
+                    <p class="yr">11/2023 - 08/2025</p>
+                    <h3>Delta Máquinas Têxteis – Desenvolvedor Júnior</h3>
+                    <p>Pomerode · Presencial</p>
+                    <p>Desenvolvimento de soluções em JavaScript para automação de máquinas têxteis, com otimização de processos e integração de sistemas com clientes.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -58,7 +96,29 @@
         <p class="sec-label">Projetos</p>
         <h2 class="sec-title">Portfólio</h2>
         <div class="divider"></div>
-        <div class="pgrid" id="pgrid"></div>
+        <div class="pgrid" id="pgrid">
+            <div class="card vis">
+                <div class="card-ico">📈</div>
+                <h3>Investment-Project (Em Andamento)</h3>
+                <p>Projeto inspirado no Investidor10 para gerenciar meus investimentos e aprender mais sobre Arquitetura Hexagonal.</p>
+                <div class="tags">
+                    <span class="tag">Backend - TypeScript</span>
+                    <span class="tag">Frontend - React</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Micro-services</span>
+                </div>
+            </div>
+            <div class="card vis">
+                <div class="card-ico">📋</div>
+                <h3>Bill-Project (Em Andamento)</h3>
+                <p>Projeto para controlar meus gastos mensais e a entrada de dinheiro.</p>
+                <div class="tags">
+                    <span class="tag">Backend - TypeScript</span>
+                    <span class="tag">Frontend - React</span>
+                    <span class="tag">Docker</span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="contato">
@@ -69,7 +129,14 @@
             <div class="cinfo">
                 <p>Estou aberto a novas oportunidades, projetos freelance ou um bate-papo sobre tecnologia. Manda
                     mensagem!</p>
-                <div class="clinks" id="clinks"></div>
+                <div class="clinks" id="clinks">
+                    <a href="https://www.linkedin.com/in/davi-dorn-809075287/" class="clink vis" target="_blank">
+                        <span class="ico">💼</span>linkedin.com/in/davi-dorn-809075287/
+                    </a>
+                    <a href="https://github.com/Davi473" class="clink vis" target="_blank">
+                        <span class="ico">🐙</span>github.com/Davi473
+                    </a>
+                </div>
             </div>
             <form class="cform" id="cform">
                 <input type="text" id="fn" placeholder="Seu nome" required />

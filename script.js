@@ -1,84 +1,16 @@
 class Main {
     // Inicializa a classe principal com os dados do currículo e configura a página.
-    constructor(dadosFormacao, dadosExperiencia, dadosProjetos, dadosContato) {
-        this.dadosFormacao = dadosFormacao;
-        this.dadosExperiencia = dadosExperiencia;
-        this.dadosProjetos = dadosProjetos;
-        this.dadosContato = dadosContato;
-        this.init();
-    }
+    constructor() {this.init()}
 
     // Renderiza o conteúdo inicial e adiciona os ouvintes de evento.
     init() {
         const link = document.querySelectorAll(".nl a")[0];
         link.classList.add("active");
-        this.renderFormacao();
-        this.renderExperiencia();
-        this.renderProjetos();
-        this.renderContato();
         this.configurarFormulario();
+        this.configurarMenuMobile();
         this.configurarAnimacoes();
         window.addEventListener("scroll", this.atualizarProgresso);
         window.addEventListener("scroll", this.atualizarNavAtivo);
-    }
-
-    // Cria e insere os elementos da seção de formação no timeline.
-    renderFormacao() {
-        const divFormacao = document.getElementById("timeline");
-        for (const value of this.dadosFormacao) {
-            const divItemFormulario = document.createElement("div");
-            divItemFormulario.className = "ti";
-            divItemFormulario.innerHTML = `
-                <p class="yr">${value.ano}</p>
-                <h3>${value.titulo}</h3>
-                <p>${value.local}</p>`;
-            divFormacao.appendChild(divItemFormulario);
-        }
-    }
-
-    // Cria e insere os elementos da seção de experiência profissional.
-    renderExperiencia() {
-        const divExperiencia = document.getElementById("timeline2");
-        for (const value of this.dadosExperiencia) {
-            const divItemExperiencia = document.createElement("div");
-            divItemExperiencia.className = "ti";
-            divItemExperiencia.innerHTML = `
-                <p class="yr">${value.ano}</p>
-                <h3>${value.titulo}</h3>
-                <p>${value.description}</p>
-                <p>${value.local}</p>`;
-            divExperiencia.appendChild(divItemExperiencia);
-        }
-    }
-
-    // Cria e insere os cards de projetos com ícones e tags.
-    renderProjetos() {
-        const divProjetos = document.getElementById("pgrid");
-        for (const value of this.dadosProjetos) {
-            let tags = "";
-            for (const tag of value.tags) tags += `<span class="tag">${tag}</span>`;
-            const divItemProjetos = document.createElement("div");
-            divItemProjetos.className = "card";
-            divItemProjetos.innerHTML = `
-            <div class="card-ico">${value.ico}</div>
-            <h3>${value.nome}</h3>
-            <p>${value.desc}</p>
-            <div class="tags">${tags}</div>`;
-            divProjetos.appendChild(divItemProjetos);
-        }
-    }
-
-    // Cria e insere os links de contato usando elementos <a>.
-    renderContato() {
-        const divContato = document.getElementById("clinks");
-        for (const value of this.dadosContato) {
-            const divItemContato = document.createElement("a");
-            divItemContato.href = value.href;
-            divItemContato.className = "clink";
-            divItemContato.target = "_blank";
-            divItemContato.innerHTML = '<span class="ico">' + value.ico + '</span>' + value.txt;
-            divContato.appendChild(divItemContato);
-        }
     }
 
     // Atualiza a barra de progresso de rolagem com base na posição da página.
@@ -104,16 +36,73 @@ class Main {
         }
     }
 
-    // Configura o formulário de contato para mostrar feedback e resetar após envio.
+    // Configura o formulário de contato para validar campos e exibir confirmação.
     configurarFormulario() {
         const form = document.getElementById("cform");
+        const nome = document.getElementById("fn");
+        const email = document.getElementById("fe");
+        const mensagem = document.getElementById("fm");
         const fb = document.getElementById("fb");
+
+        // Valida o formato básico do e-mail usando uma expressão regular.
+        const validarEmail = (valor) => {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor);
+        };
+
         form.addEventListener("submit", (e) => {
-            e.preventDefault();
-            if (!document.getElementById("fn").value.trim()) return;
+            e.preventDefault(); // Evita o envio padrão e permite validação manual.
+
+            // Lê os valores dos campos e remove espaços extras.
+            const nomeValidar = nome.value.trim();
+            const emailValidar = email.value.trim();
+            const mensagemValidar = mensagem.value.trim();
+
+            // Verifica se todos os campos obrigatórios foram preenchidos.
+            if (!nomeValidar || !emailValidar || !mensagemValidar) {
+                alert("Por favor, preencha todos os campos antes de enviar.");
+                return;
+            }
+
+            // Verifica se o e-mail informado tem um formato válido.
+            if (!validarEmail(emailValidar)) {
+                alert("Por favor, informe um e-mail válido no formato usuario@dominio.com.");
+                email.focus();
+                return;
+            }
+
+            // Exibe feedback de sucesso, limpa o formulário e mantém a mensagem por alguns segundos.
+            fb.textContent = "Mensagem enviada com sucesso!";
             fb.style.display = "block";
             form.reset();
-            setTimeout(function () { fb.style.display = "none"; }, 4000);
+            alert("Mensagem enviada com sucesso!");
+            setTimeout(() => {
+                fb.style.display = "none";
+            }, 4000);
+        });
+    }
+
+    // Configura o menu móvel para abrir e fechar usando o botão hambúrguer.
+    configurarMenuMobile() {
+        const navToggle = document.getElementById("navToggle");
+        const navList = document.getElementById("nl");
+        const navLinks = document.querySelectorAll(".nl a");
+
+        if (!navToggle || !navList) return;
+
+        const alternarMenu = () => {
+            const aberto = navList.classList.toggle("open");
+            navToggle.setAttribute("aria-expanded", aberto ? "true" : "false");
+        };
+
+        navToggle.addEventListener("click", alternarMenu);
+
+        navLinks.forEach((link) => {
+            link.addEventListener("click", () => {
+                if (navList.classList.contains("open")) {
+                    navList.classList.remove("open");
+                    navToggle.setAttribute("aria-expanded", "false");
+                }
+            });
         });
     }
 
@@ -132,26 +121,5 @@ class Main {
     }
 }
 
-const dadosFormacao = [
-    { ano: "04/2025 – Cursando", titulo: "Ciência da Computação", local: "Uninter · Online" },
-    { ano: "09-2021 - 08/2023", titulo: "Técnico em Eletromecânica", local: "Senai · Pomerode, SC" },
-    { ano: "01/2020 – 12/2020", titulo: "Aprendizagem Industrial de Eletricista de Instalações Industriais", local: "Senai · Pomerode, SC" }
-];
 
-const dadosExperiencia = [
-    { ano: "04/2026 - Altualmente", titulo: "ANDRITZ Separation - Estagio TI · Infra / Suporte", local: "Pomerode · Presencial", description: "Presto suporte aos colaboradores e sou responsável pela infraestrutura da empresa." },
-    { ano: "08/2025 - 02/2026", titulo: "Ardatz Tecnologia - Desenvolvedor Júnior", local: "Curitiba · Remoto", description: "Desenvolvimento de plataforma de venda de ingressos com React no front-end e Java no back-end, criando interfaces dinâmicas e mantendo regras de negócio para sistemas de alto fluxo." },
-    { ano: "11/2023 - 08/2025", titulo: "Delta Máquinas Têxteis – Desenvolvedor Júnior", local: "Pomerode · Presencial", description: "Desenvolvimento de soluções em JavaScript para automação de máquinas têxteis, com otimização de processos e integração de sistemas com clientes." }
-];
-
-const dadosProjetos = [
-    { ico: "📈", nome: "Investment-Project (Em Andamento)", desc: "Projeto inspirado no Investidor10 para gerenciar meus investimentos e aprender mais sobre Arquitetura Hexagonal.", tags: ["Backend - TypeScritp", "Frontend - React", "Docker", "Micro-services"] },
-    { ico: "📋", nome: "Bill-Project (Em Andamento)", desc: "Projeto para controlar meus gastos mensais e a entrada de dinheiro.", tags: ["Backend - TypeScritp", "Frontend - React", "Docker"] }
-];
-
-const dadosContato = [
-    { ico: "💼", txt: "linkedin.com/in/davi-dorn-809075287/", href: "https://www.linkedin.com/in/davi-dorn-809075287/" },
-    { ico: "🐙", txt: "github.com/Davi473", href: "https://github.com/Davi473" }
-];
-
-window.onload = new Main(dadosFormacao, dadosExperiencia, dadosProjetos, dadosContato);
+window.onload = new Main();
